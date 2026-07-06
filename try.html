@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notification Dropdown</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <style>
+    .notification {
+      font-size: 30px;
+      position: relative;
+      cursor: pointer;
+    }
+    .notification .num {
+      position: absolute;
+      top: -6px; 
+      right: -6px;
+      width: 20px; 
+      height: 20px;
+      border-radius: 50%;
+      background: red;
+      color: #fff;
+      font-size: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .inbox-dropdown {
+      display: none; /* default hidden */
+      position: absolute;
+      right: 0;
+      top: 2.5rem;
+      min-width: 270px;
+      max-width: 350px;
+      z-index: 9999;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 8px 32px rgba(44,62,80,0.13);
+      padding: 1.2rem 1.3rem;
+    }
+
+    .inbox-dropdown.show {
+      display: block; /* only show when .show is added */
+    }
+
+    .inbox-title {
+      margin: 0 0 0.7rem 0;
+      font-size: 1.1rem;
+      color: #2a3a5c;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .inbox-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-height: 260px;
+      overflow-y: auto;
+    }
+    .inbox-item {
+      margin-bottom: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .inbox-text {
+      font-size: 0.98rem;
+      word-break: break-word;
+    }
+    .inbox-date {
+      color: gray;
+      display: block;
+    }
+    .inbox-delete-form {
+      margin: 0;
+    }
+    .delete-btn {
+      background: none;
+      border: none;
+      font-size: 1.2em;
+      cursor: pointer;
+      color: #e74c3c;
+    }
+    .inbox-hr {
+      margin: 0.7rem 0;
+    }
+    .history-link {
+      color: #4f8cff;
+      font-size: 0.98rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#" class="notification">
+    <i class='bx bxs-bell'></i>
+    <span class="num">3</span>
+  </a>
+
+  <div id="inbox-dropdown" class="inbox-dropdown">
+    <h4 class="inbox-title">Inbox Notifications</h4>
+    <ul class="inbox-list">
+      <li class="inbox-item">
+        <div class="inbox-text">
+          You missed the deadline: Math Project
+          <small class="inbox-date">(2025-09-03)</small>
+        </div>
+        <form class="inbox-delete-form">
+          <button class="delete-btn" title="Delete">🗑️</button>
+        </form>
+      </li>
+      <li class="inbox-item">
+        <div class="inbox-text">
+          ✅ Successfully submitted English Essay
+          <small class="inbox-date">(2025-09-02)</small>
+        </div>
+        <form class="inbox-delete-form">
+          <button class="delete-btn" title="Delete">🗑️</button>
+        </form>
+      </li>
+    </ul>
+    <hr class="inbox-hr">
+    <a href="#" class="history-link"><span>📜</span> View Deleted History</a>
+  </div>
+
+  <script>
+    const bell = document.querySelector('.notification');
+    const inboxDropdown = document.getElementById('inbox-dropdown');
+
+    bell.addEventListener('click', (e) => {
+      e.preventDefault();
+      inboxDropdown.classList.toggle('show');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!bell.contains(e.target) && !inboxDropdown.contains(e.target)) {
+        inboxDropdown.classList.remove('show');
+      }
+    });
+  </script>
+
+</body>
+</html>

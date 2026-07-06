@@ -1,0 +1,637 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+/* =====================
+   Root Variables
+   ===================== */
+:root {
+  --primary: #2a3a5c;
+  --accent: #4f8cff;
+  --accent-light: #eaf1ff;
+  --bg: #f6f8fa;
+  --card-bg: #fff;
+  --border: #e3e7ed;
+  --text: #232b3b;
+  --muted: #7a869a;
+  --success: #2ecc71;
+  --danger: #e74c3c;
+  --warning: #ffb347;
+  --radius: 18px;
+  --shadow: 0 4px 24px rgba(44, 62, 80, 0.08);
+  --transition: 0.18s cubic-bezier(.4,0,.2,1);
+  --darker: linear-gradient(135deg, #b0c4e8 60%, #7f9fdb 100%);
+  --lighter: linear-gradient(135deg, #eaf1ff 60%, #cfe0ff 100%);
+
+}
+
+/* =====================
+   Reset & Base Styles
+   ===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', 'Poppins', Arial, sans-serif;
+}
+
+body {
+  background-image: url('bg.png'); /* Change this to your image path */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+
+/* =====================
+   Fade-In Animation
+   ===================== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+/* ========== NAVBAR & INBOX UI ========== */
+.student-title {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+}
+.student-title span {
+  color: #4f8cff;
+}
+.nav-grades {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-inbox {
+  position: relative;
+}
+.nav-inbox-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.inbox-badge {
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  background: #e74c3c;
+  color: #fff;
+  font-size: 0.8rem;
+  padding: 2px 7px;
+  border-radius: 12px;
+  min-width: 22px;
+  text-align: center;
+  line-height: 1;
+  box-shadow: 0 2px 8px rgba(44,62,80,0.13);
+}
+.inbox-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 2.2rem;
+  min-width: 270px;
+  max-width: 350px;
+  z-index: 9999;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(44,62,80,0.13);
+  padding: 1.2rem 1.3rem;
+}
+.inbox-title {
+  margin: 0 0 0.7rem 0;
+  font-size: 1.1rem;
+  color: #2a3a5c;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.inbox-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 260px;
+  overflow-y: auto;
+}
+.inbox-item {
+  margin-bottom: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.inbox-text {
+  font-size: 0.98rem;
+  word-break: break-word;
+}
+.inbox-date {
+  color: gray;
+  display: block;
+}
+.inbox-delete-form {
+  margin: 0;
+}
+.delete-btn {
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+  color: #e74c3c;
+}
+.inbox-hr {
+  margin: 0.7rem 0;
+}
+.history-link {
+  color: #4f8cff;
+  font-size: 0.98rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.nav-logout {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ========== HISTORY MODAL UI ========== */
+.history-modal {
+  display: none;
+  position: fixed;
+  top: 10%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 90%;
+  max-width: 500px;
+  background: #fff;
+  padding: 24px 22px 18px 22px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(44,62,80,0.18);
+  z-index: 99999;
+}
+.history-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0 0 0.7rem 0;
+  color: #3949ab;
+  letter-spacing: 0.5px;
+}
+.history-close {
+  float: right;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #e74c3c;
+}
+.history-list {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-left: 0;
+  list-style: none;
+}
+.history-item {
+  margin-bottom: 0.7rem;
+  padding: 0.7rem 0.5rem 0.5rem 0.5rem;
+  border-bottom: 1px solid #e3e7ed;
+}
+.history-date {
+  display: block;
+  color: gray;
+}
+
+/* =====================
+   Navbar Styles
+   ===================== */
+nav {
+  background: var(--primary);
+  color: #fff;
+  padding: 1.3rem 2.5rem;
+  box-shadow: 0 2px 12px rgba(44,62,80,0.07);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  border-bottom-left-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+}
+
+
+
+.nav-links {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: background var(--transition), color var(--transition);
+}
+
+.nav-links a:hover {
+  background: var(--accent-light);
+  color: var(--primary);
+}
+
+.logout {
+  background: var(--danger);
+  color: #fff !important;
+  font-weight: 600;
+  transition: background var(--transition);
+}
+
+.logout:hover {
+  background: #b71c1c !important;
+}
+
+.inbox-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.inbox-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.7rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background: #f9f9f9;
+  transition: background 0.2s ease;
+}
+
+.inbox-item:hover {
+  background: #eef3ff;
+}
+
+.inbox-text {
+  max-width: 80%;
+  font-size: 0.95rem;
+  word-break: break-word;
+}
+
+.inbox-date {
+  display: block;
+  color: gray;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+}
+
+.inbox-delete-form {
+  margin-left: 10px;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  color: #e74c3c;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.delete-btn:hover {
+  color: #c0392b;
+}
+
+.history-link {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #3498db;
+  text-decoration: none;
+}
+
+
+/* =====================
+   Dashboard Grid Layout
+   ===================== */
+.dashboard {
+  max-width: 1200px;
+  margin: 7.5rem auto 2rem;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 2.5rem;
+}
+
+
+/* =====================
+   Section & Card Styles
+   ===================== */
+.section {
+  background: var(--card-bg);
+  padding: 2rem 2.2rem 2rem 2.2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  border: 1px solid var(--border);
+  transition: box-shadow var(--transition), transform var(--transition);
+  animation: fadeIn 0.5s;
+}
+
+.section:hover {
+  box-shadow: 0 8px 32px rgba(44,62,80,0.13);
+  transform: translateY(-2px) scale(1.01);
+}
+
+.section h3 {
+  color: var(--primary);
+  font-size: 1.22rem;
+  font-weight: 600;
+  margin-bottom: 0.7rem;
+}
+/* =====================
+   Card Hover State (on Mouse Over)
+   ===================== */
+.section:hover,
+.section.active-card,
+.section-feedback, .sectionss:hover,
+.section-feedback, .sectionss.active-card {
+  background: linear-gradient(135deg, #eaf1ff 60%, #cfe0ff 100%) !important;
+  box-shadow: 0 8px 32px rgba(79,140,255,0.18), 0 1.5px 4px rgba(44,62,80,0.04);
+  border-color: var(--accent);
+  transition: background 0.18s, box-shadow 0.18s, border-color 0.18s;
+}
+/* =====================
+   List Styles (PowerPoint, Deadlines, etc.)
+   ===================== */
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+ul li {
+  margin-bottom: 0.7rem;
+  font-size: 1rem;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+ul li a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--transition);
+}
+ul li a:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+strong {
+  font-weight: 700;
+  color: var(--danger);
+}
+
+/* =====================
+   Table Styles (Grades, Feedback, etc.)
+   ===================== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--card-bg);
+  box-shadow: 0 2px 10px rgba(44,62,80,0.04);
+  margin-top: 1rem;
+}
+table th, table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.97rem;
+  color: var(--text);
+}
+table th {
+  background: var(--darker) ; /*changes*/
+  color: var(--text);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+table tr:hover {
+  background: var(--accent-light);
+}
+table td a {
+  color: var(--primary);
+  text-decoration: underline;
+  font-weight: 500;
+}
+table td a:hover {
+  color: var(--primary);
+}
+
+/* =====================
+   Feedback Table Styles
+   ===================== */
+.feedback-table-wrapper {
+  width: 100%;
+  min-width: 100%;
+  max-width: 100vw;
+  overflow-x: auto;
+  background: transparent;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(44,62,80,0.04);
+}
+.feedback-table {
+  width: 100%;
+  min-width: 800px;
+  max-width: 1400px;
+  border-collapse: collapse;
+  background: transparent;
+}
+.feedback-table th, .feedback-table td {
+  padding: 14px 18px;
+  border: 1px solid var(--border);
+  text-align: center;
+  word-break: break-word;
+  max-width: 420px;
+  font-size: 1.05rem;
+}
+.highlight-feedback {
+  background-color: var(--warning);
+  border-left: 6px solid var(--danger);
+}
+
+/* =====================
+   Expand Feedback Section Card
+   ===================== */
+.section-feedback {
+  background: var(--card-bg);
+  padding: 2rem 2.2rem 2rem 2.2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  border: 1px solid var(--border);
+  transition: box-shadow var(--transition), transform var(--transition);
+  animation: fadeIn 0.5s;
+  grid-column: 1 / -1;
+}
+
+.section-feedback:hover {
+  box-shadow: 0 8px 32px rgba(44,62,80,0.13);
+  transform: translateY(-2px) scale(1.01);
+}
+
+.section-feedback h3 {
+  color: var(--primary);
+  font-size: 1.22rem;
+  font-weight: 600;
+  margin-bottom: 0.7rem;
+}
+
+.sectionss {
+  background: var(--card-bg);
+  padding: 2rem 2.2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  border: 1px solid var(--border);
+  transition: box-shadow var(--transition), transform var(--transition);
+  animation: fadeIn 0.5s;
+  width: 210%;
+  max-width: 1500px;
+  box-sizing: border-box;
+  margin-left: fit-content;
+  margin-right: fit-content;
+}
+
+.sectionss:hover {
+  box-shadow: 0 8px 32px rgba(44,62,80,0.13);
+  transform: translateY(-2px) scale(1.01);
+}
+
+.sectionss h3 {
+  color: var(--primary);
+  font-size: 1.22rem;
+  font-weight: 600;
+  margin-bottom: 0.7rem;
+}
+
+/* =====================
+   Forms & Inputs (Assignment Submission, Feedback, etc.)
+   ===================== */
+form[method="POST"] {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+form[method="POST"] label {
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 1rem;
+}
+input[type="file"] {
+  padding: 0.7rem 1rem;
+  border: 2px dashed var(--accent-light);
+  background-color: var(--bg);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+  font-size: 0.97rem;
+  color: var(--primary);
+}
+input[type="file"]:hover {
+  border-color: var(--accent);
+  background-color: var(--accent-light);
+}
+
+button[name="submit_assignment"],
+.feedback-table form button {
+  background: var(--lighter);
+  color: var(--primary);
+  padding: 0.7rem 1.3rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 7px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+  box-shadow: 0 2px 8px rgba(44,62,80,0.07);
+}
+button[name="submit_assignment"]:hover,
+.feedback-table form button:hover {
+  background: var(--darker);
+  transform: translateY(-1px) scale(1.03);
+}
+
+/* =====================
+   Custom Scrollbar
+   ===================== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent-light);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* =====================
+   Responsive Media Queries
+   ===================== */
+@media (max-width: 900px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+  }
+  .feedback-section {
+    grid-column: 1 / 2 !important;
+  }
+}
+@media (max-width: 600px) {
+  nav {
+    flex-direction: column;
+    padding: 1rem 0.5rem;
+    text-align: center;
+    border-radius: 0 0 var(--radius) var(--radius);
+  }
+  .nav-links {
+    margin-top: 1rem;
+    gap: 1rem;
+  }
+  .dashboard {
+    margin-top: 9rem;
+    padding: 0 0.5rem;
+  }
+  .section {
+    padding: 1.2rem 1rem;
+  }
+  .dashboard h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.2rem;
+  }
+  .feedback-section {
+    grid-column: 1 / 2 !important;
+  }
+}
